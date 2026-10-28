@@ -7,7 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { City } from "@/lib/api/cities";
+import type { City } from "../types/types";
+import { useCities } from "../hooks/location-hooks";
 
 interface CityContextValue {
   cities: City[];
@@ -19,13 +20,13 @@ const CityContext = createContext<CityContextValue | undefined>(undefined);
 
 export function CityProvider({
   children,
-  cities,
   initialCity,
 }: {
   children: ReactNode;
-  cities: City[];
   initialCity?: City;
 }) {
+  const { data } = useCities();
+  const cities = useMemo(() => data?.items ?? [], [data?.items]);
   const [selectedCity, setSelectedCity] = useState<City | undefined>(
     initialCity,
   );

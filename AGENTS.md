@@ -23,6 +23,15 @@ Repo root contains the `torobland-app/` Next.js app. All app work happens in `to
 - Merge custom classes through `className`; shadcn uses `cn()` (tailwind-merge) so conflicting classes are overridden.
 - `components.json`: `"rsc": false` (components are client components), aliases `@/components`, `@/lib/utils`, `@/components/ui`, `@/lib`, `@/hooks`.
 
+## Structure
+- All features placed in `src/features` folder
+- Put related types in `<feature>/types` dir
+- All hooks should be placed in `<features>/hooks` - `useQuery` hooks, reusable business logics, context or state management hooks
+- Put Infrastructure layer related code into `<features>/infra` - api, search-params utils, queries of react-query
+- Put composed component which implemented as a widgets of feature pages or component in `<features>/components`. primitive components or shared components placed in `src/components`
+- Put context or state management utils or providers in `<feature>/contexts`
+
+
 ## Config files that matter
 - `torobland-app/next.config.ts` — `cacheComponents: true`, `partialPrefetching: true`, turbopack Tailwind loader
 - `torobland-app/tsconfig.json` — `@/*` -> `./src/*`, strict, isolatedModules

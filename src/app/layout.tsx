@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import QueryProvider from "@/lib/providers/query-provider";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],
@@ -23,8 +24,8 @@ export default function RootLayout({
       dir="rtl"
       className={`${vazirmatn.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-950 text-slate-200">
-        {children}
+      <body className="flex min-h-full flex-col bg-slate-950 text-slate-200">
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

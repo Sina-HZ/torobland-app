@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCity } from "@/components/city-context";
+import { useCity } from "@/features/location/contexts/city-context";
 import { cn } from "@/lib/utils";
 
 export default function LocationSelect() {
@@ -20,7 +20,7 @@ export default function LocationSelect() {
       <DropdownMenu open={open} onOpenChange={setOpen}>
         <DropdownMenuTrigger
           aria-label="انتخاب شهر"
-          className="rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-slate-200 hover:bg-slate-800 hover:no-underline flex w-full items-center justify-between"
+          className="flex w-full items-center justify-between rounded-lg border border-slate-700 bg-slate-900 px-3 py-2 text-slate-200 hover:bg-slate-800 hover:no-underline"
         >
           <span className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-cyan-400" aria-hidden="true" />
@@ -29,14 +29,14 @@ export default function LocationSelect() {
             </span>
           </span>
           <ChevronDown
-            className={cn("h-4 w-4 text-slate-500 transition-transform ms-2", {
+            className={cn("ms-2 h-4 w-4 text-slate-500 transition-transform", {
               "rotate-180": open,
             })}
             aria-hidden="true"
           />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent className="rounded-xl mt-2 border border-slate-700 bg-slate-900 p-1 shadow-lg z-100">
+        <DropdownMenuContent className="z-100 mt-2 rounded-xl border border-slate-700 bg-slate-900 p-1 shadow-lg">
           {cities.length === 0 && (
             <p className="px-2 py-3 text-xs text-slate-400">شهری پیدا نشد.</p>
           )}

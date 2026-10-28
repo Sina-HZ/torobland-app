@@ -11,7 +11,9 @@ type AccordionContextValue = {
   collapsible: boolean;
 };
 
-const AccordionContext = React.createContext<AccordionContextValue | null>(null);
+const AccordionContext = React.createContext<AccordionContextValue | null>(
+  null,
+);
 
 interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   type?: "single";
@@ -32,7 +34,8 @@ function Accordion({
 }: AccordionProps) {
   const [uncontrolledValue, setUncontrolledValue] =
     React.useState<AccordionValue>(defaultValue);
-  const value = controlledValue === undefined ? uncontrolledValue : controlledValue;
+  const value =
+    controlledValue === undefined ? uncontrolledValue : controlledValue;
 
   const setValue = (nextValue: string) => {
     const next = collapsible && value === nextValue ? undefined : nextValue;
@@ -55,7 +58,12 @@ interface AccordionItemProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
-function AccordionItem({ value, className, children, ...props }: AccordionItemProps) {
+function AccordionItem({
+  value,
+  className,
+  children,
+  ...props
+}: AccordionItemProps) {
   return (
     <div
       data-state={useAccordionItemState(value)}
@@ -72,46 +80,51 @@ function useAccordionItemState(value: string) {
   return accordion?.value === value ? "open" : "closed";
 }
 
-interface AccordionTriggerProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface AccordionTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   value: string;
 }
 
-const AccordionTrigger = React.forwardRef<HTMLButtonElement, AccordionTriggerProps>(
-  ({ value, className, children, onClick, ...props }, ref) => {
-    const accordion = React.useContext(AccordionContext);
-    if (!accordion) {
-      throw new Error("AccordionTrigger must be used inside Accordion");
-    }
-
-    const open = accordion.value === value;
-    return (
-      <button
-        ref={ref}
-        type="button"
-        aria-expanded={open}
-        className={cn(
-          "flex w-full items-center justify-between py-3 text-right text-sm font-medium transition-all hover:text-cyan-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500",
-          className
-        )}
-        onClick={(event) => {
-          accordion.setValue(value);
-          onClick?.(event);
-        }}
-        {...props}
-      >
-        {children}
-      </button>
-    );
+const AccordionTrigger = React.forwardRef<
+  HTMLButtonElement,
+  AccordionTriggerProps
+>(({ value, className, children, onClick, ...props }, ref) => {
+  const accordion = React.useContext(AccordionContext);
+  if (!accordion) {
+    throw new Error("AccordionTrigger must be used inside Accordion");
   }
-);
+
+  const open = accordion.value === value;
+  return (
+    <button
+      ref={ref}
+      type="button"
+      aria-expanded={open}
+      className={cn(
+        "flex w-full items-center justify-between py-3 text-right text-sm font-medium transition-all hover:text-cyan-400 focus-visible:ring-2 focus-visible:ring-cyan-500 focus-visible:outline-none",
+        className,
+      )}
+      onClick={(event) => {
+        accordion.setValue(value);
+        onClick?.(event);
+      }}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+});
 AccordionTrigger.displayName = "AccordionTrigger";
 
 interface AccordionContentProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
-function AccordionContent({ value, className, children, ...props }: AccordionContentProps) {
+function AccordionContent({
+  value,
+  className,
+  children,
+  ...props
+}: AccordionContentProps) {
   const accordion = React.useContext(AccordionContext);
   const open = accordion?.value === value;
 
