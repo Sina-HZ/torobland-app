@@ -1,10 +1,8 @@
-import { apiFetch, serverFetch } from "@/lib/providers/http-client";
+import { apiFetch } from "@/lib/providers/http-client";
 import type { Category } from "../../types";
 
 export async function getCategories(
-  transport: typeof apiFetch | typeof serverFetch = apiFetch,
+  transport = apiFetch(),
 ): Promise<Category[]> {
-  return transport<Category[]>(
-    transport === serverFetch ? "/categories" : "/api/categories",
-  );
+  return transport<Category[]>("/categories");
 }

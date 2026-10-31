@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { getQueryClient } from "@/lib/providers/query-client";
 import { categoryList } from "../infra/queries";
-import { serverFetch } from "@/lib/providers/http-client";
 
 export default async function CategoriesLink() {
   const queryClient = getQueryClient();
-  const categories = await queryClient.query(categoryList(serverFetch));
+  const categories = await queryClient.query(categoryList());
 
   return categories.map((cat) => (
     <Link

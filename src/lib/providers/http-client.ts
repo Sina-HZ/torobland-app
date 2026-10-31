@@ -1,3 +1,5 @@
+import { isBrowser, isServer } from "../utils";
+
 export type ApiErrorShape = Error & {
   status: number;
   code?: string;
@@ -86,6 +88,14 @@ async function refreshOnce(): Promise<boolean> {
   return refreshPromise;
 }
 
+const normalizePath = (path: string) => {
+  const prefix = "/api";
+  if (isBrowser()) {
+    path = path.startsWith("/") ? prefix + path : prefix + `/${path}`;
+  }
+  return path;
+};
+
 export async function browserFetch<T>(
   path: string,
   init: RequestInit = {},
@@ -93,7 +103,7 @@ export async function browserFetch<T>(
 ): Promise<T> {
   const request = { ...init, credentials: "same-origin" as RequestCredentials };
   try {
-    return await requestJson<T>(path, request);
+    return await requestJson<T>(normalizePath(path), request);
   } catch (error) {
     if (
       canRefresh &&
@@ -101,7 +111,7 @@ export async function browserFetch<T>(
       error.status === 401 &&
       (await refreshOnce())
     )
-      return browserFetch<T>(path, init, false);
+      return browserFetch<T>(normalizePath(path), init, false);
     throw error;
   }
 }
@@ -112,10 +122,12 @@ export async function serverFetch<T>(
 ): Promise<T> {
   const base = process.env.BACKEND_API_URL;
   if (!base) throw new Error("BACKEND_API_URL is not configured");
-  return requestJson<T>(`${base.replace(/\/$/, "")}${path}`, {
+  const url = `${base.replace(/\/$/, "")}${normalizePath(path)}`;
+  return requestJson<T>(url, {
     ...init,
     cache: "no-store",
   });
 }
 
-export const apiFetch = browserFetch;
+export const apiFetch = (): typeof serverFetch | typeof browserFetch =>
+  isServer() ? serverFetch : browserFetch;

@@ -6,6 +6,7 @@ import { ProductQuery } from "../types";
 
 export const useProducts = (query: ProductQuery) =>
   useQuery(productSearch(query));
+
 export const useProduct = (id: string) =>
   useQuery({
     queryKey: ["product", id],
@@ -14,12 +15,14 @@ export const useProduct = (id: string) =>
     staleTime: 60_000,
     gcTime: 1_800_000,
   });
+
 export const useProductOffers = (id: string, cityId?: string) =>
   useQuery({
     queryKey: ["offers", id, cityId],
     queryFn: () => getProductOffers(id, cityId),
     enabled: Boolean(id),
   });
+
 export const useCompareProducts = () =>
   useMutation({
     mutationFn: (body: { cityId: string; productIds: string[] }) =>

@@ -19,6 +19,7 @@ export function canonicalProductQuery(input: ProductQuery = {}) {
 }
 
 export function toProductSearchParams(input: ProductQuery = {}) {
+  if (Object.keys.length === 0) return "";
   const q = canonicalProductQuery(input);
   return qs.stringify(q, { arrayFormat: "repeat", skipNulls: true });
 }

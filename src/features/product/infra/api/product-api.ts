@@ -1,15 +1,14 @@
-import { apiFetch, serverFetch } from "@/lib/providers/http-client";
-import type { Offer, Product, ProductQuery, ProductSummary } from "../../types";
-import { toProductSearchParams } from "../search-params";
+import { apiFetch } from "@/lib/providers/http-client";
+import type { Offer, Product, ProductSummary } from "../../types";
 import { Page } from "@/lib/types/api-types";
 
 export async function getAllProducts(
-  query: ProductQuery = {},
-  transport: typeof apiFetch | typeof serverFetch = apiFetch,
+  queryString: string = "",
+  transport = apiFetch(),
 ): Promise<Page<ProductSummary>> {
-  let endPoint = transport === serverFetch ? "/products" : "/api/products";
-  if (Object.keys(query).length > 0) {
-    endPoint += `?${toProductSearchParams(query)}`;
+  let endPoint = "products";
+  if (queryString && queryString.length > 0) {
+    endPoint += `?${queryString}`;
   }
   const response = await transport<Page<ProductSummary>>(endPoint);
   return response;
@@ -17,21 +16,17 @@ export async function getAllProducts(
 
 export async function getProductDetail(
   id: string,
-  transport = apiFetch,
+  transport = apiFetch(),
 ): Promise<Product> {
-  return transport<Product>(
-    `${transport === serverFetch ? "/products" : "/api/products"}/${encodeURIComponent(id)}`,
-  );
+  return transport<Product>(`products/${encodeURIComponent(id)}`);
 }
 
 export async function getProductOffers(
   id: string,
   cityId?: string,
-  transport = apiFetch,
+  transport = apiFetch(),
 ): Promise<Offer[]> {
   const p = new URLSearchParams({ includeStale: "false" });
   if (cityId) p.set("cityId", cityId);
-  return transport<Offer[]>(
-    `${transport === serverFetch ? "/products" : "/api/products"}/${encodeURIComponent(id)}/offers?${p}`,
-  );
+  return transport<Offer[]>(`products/${encodeURIComponent(id)}/offers?${p}`);
 }

@@ -4,3 +4,11 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function isServer() {
+  return typeof window === "undefined";
+}
+
+export function isBrowser() {
+  return !isServer();
+}
