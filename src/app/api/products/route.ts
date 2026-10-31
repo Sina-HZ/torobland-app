@@ -1,5 +1,5 @@
-import { NextRequest } from "next/server";
 import { forward } from "@/lib/api/bff";
+import { NextRequest } from "next/server";
 export async function GET(req: NextRequest) {
   return forward(req, "/products", { accessToken: true });
 }

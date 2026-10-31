@@ -1,7 +1,5 @@
 "use client";
 
-import { Check, ChevronDown, MapPin } from "lucide-react";
-import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCity } from "@/features/location/contexts/city-context";
 import { cn } from "@/lib/utils";
+import { Check, ChevronDown, MapPin } from "lucide-react";
+import { useState } from "react";
 
 export default function LocationSelect() {
   const { cities, selectedCity, setSelectedCity } = useCity();

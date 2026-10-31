@@ -1,9 +1,9 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import type { Sort } from "@/features/product/components/product-list";
 import FilterSidebar from "@/features/product/components/filter-sidebar";
+import type { Sort } from "@/features/product/components/product-list";
 import ProductList from "@/features/product/components/product-list";
+import { useCallback, useState } from "react";
 
 export default function ProductCatalog() {
   const [sort, setSort] = useState<Sort>("default");

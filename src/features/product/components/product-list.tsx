@@ -1,11 +1,11 @@
 "use client";
 
-import { useMemo } from "react";
-import { Loader2 } from "lucide-react";
 import { useCity } from "@/features/location/contexts/city-context";
 import ProductCard from "@/features/product/components/product-card";
 import { useProducts } from "@/features/product/hooks/product-hooks";
 import type { Product } from "@/features/product/types";
+import { Loader2 } from "lucide-react";
+import { useMemo } from "react";
 
 export type Sort = "default" | "price-asc" | "price-desc" | "updated-desc";
 

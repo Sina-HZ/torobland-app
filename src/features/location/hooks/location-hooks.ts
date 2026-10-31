@@ -1,8 +1,8 @@
 "use client";
 
-import qs from "qs";
 import { browserFetch } from "@/lib/providers/http-client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import qs from "qs";
 import { citiesQuery } from "../infra/queries";
 
 export const useCities = (q = "") => useQuery(citiesQuery(q));

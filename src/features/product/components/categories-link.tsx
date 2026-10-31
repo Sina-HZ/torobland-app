@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { getQueryClient } from "@/lib/providers/query-client";
+import Link from "next/link";
 import { categoryList } from "../infra/queries";
 
 export default async function CategoriesLink() {

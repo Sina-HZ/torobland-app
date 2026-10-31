@@ -7,8 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { City } from "../types/types";
 import { useCities } from "../hooks/location-hooks";
+import type { City } from "../types/types";
 
 interface CityContextValue {
   cities: City[];

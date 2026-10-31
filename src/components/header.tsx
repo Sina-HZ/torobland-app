@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Search, ShoppingCart, User, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Bell, Search, ShoppingCart, User } from "lucide-react";
+import Link from "next/link";
 
 interface HeaderProps {
   // cities: City[];

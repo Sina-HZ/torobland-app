@@ -1,6 +1,6 @@
-import * as React from "react";
 import { cn } from "@/lib/utils";
 import * as Primitive from "@radix-ui/react-dialog";
+import * as React from "react";
 
 const Dialog = Primitive.Root;
 
@@ -79,8 +79,8 @@ function X({ className }: React.SVGProps<SVGSVGElement>) {
 
 export {
   Dialog,
-  DialogTrigger,
   DialogContent,
-  DialogHeader,
   DialogDescription,
+  DialogHeader,
+  DialogTrigger,
 };

@@ -1,7 +1,7 @@
+import QueryProvider from "@/lib/providers/query-provider";
 import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "@/lib/providers/query-provider";
 
 const vazirmatn = Vazirmatn({
   subsets: ["arabic"],

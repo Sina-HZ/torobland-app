@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { forward } from "@/lib/api/bff";
 import { setTokenCookies } from "@/lib/services/cookies-service";
+import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const upstream = await forward(req, "/auth/token/refresh", {
     refreshToken: true,

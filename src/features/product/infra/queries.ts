@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getAllProducts, getCategories } from "./api";
 import { ProductQuery } from "../types";
+import { getAllProducts, getCategories } from "./api";
 import { canonicalProductQuery, toProductSearchParams } from "./search-params";
 
 export const productSearch = (query: ProductQuery) => {

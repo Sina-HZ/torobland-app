@@ -1,6 +1,6 @@
 import { apiFetch } from "@/lib/providers/http-client";
-import type { Offer, Product, ProductSummary } from "../../types";
 import { Page } from "@/lib/types/api-types";
+import type { Offer, Product, ProductSummary } from "../../types";
 
 export async function getAllProducts(
   queryString: string = "",

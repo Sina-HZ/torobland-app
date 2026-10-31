@@ -1,4 +1,4 @@
-import { apiFetch, serverFetch } from "@/lib/providers/http-client";
+import { apiFetch } from "@/lib/providers/http-client";
 import { Page } from "@/lib/types/api-types";
 import { City } from "../../types/types";
 

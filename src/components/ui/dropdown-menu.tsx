@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
 import { cn } from "@/lib/utils";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import * as React from "react";
 
 const DropdownMenu = PopoverPrimitive.Root;
 
@@ -82,9 +82,9 @@ DropdownMenuLabel.displayName = "DropdownMenuLabel";
 
 export {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 };

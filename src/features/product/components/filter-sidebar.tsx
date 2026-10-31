@@ -1,25 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
-import {
-  ArrowDownWideNarrow,
-  ChevronDown,
-  Building2,
-  DollarSign,
-  Package,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Sort } from "@/features/product/components/product-list";
+import { cn } from "@/lib/utils";
+import {
+  ArrowDownWideNarrow,
+  Building2,
+  ChevronDown,
+  DollarSign,
+  Package,
+} from "lucide-react";
+import React, { useState } from "react";
 import { useCategoryFilters } from "../hooks/category-hooks";
 
 interface FilterSectionProps {
@@ -104,7 +104,7 @@ export default function FilterSidebar({
           <span className="text-sm text-slate-400">تا</span>
           <Input
             type="text"
-            placeholder="۰۰۰,۰۰۰"
+            placeholder="مبلغ به تومان"
             className="h-9 w-28 border border-slate-700 bg-slate-900 px-3 text-sm text-slate-200 focus-visible:ring-2 focus-visible:ring-cyan-500"
           />
         </div>
@@ -126,7 +126,7 @@ export default function FilterSidebar({
       >
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Scroll overflow once there are more than 6 items */}
-          <div className="max-h-[14rem] space-y-2 overflow-y-auto rounded-lg border border-slate-800 bg-slate-900/50 p-2 pr-1">
+          <div className="max-h-56 space-y-2 overflow-y-auto rounded-lg border border-slate-800 bg-slate-900/50 p-2 pr-1">
             {isFetching ? (
               <p className="text-xs text-slate-500 italic">
                 در حال دریافت برندها...

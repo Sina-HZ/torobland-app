@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
-import * as Checkbox from "@radix-ui/react-checkbox";
 import { cn } from "@/lib/utils";
+import * as Checkbox from "@radix-ui/react-checkbox";
+import React from "react";
 
 const CheckboxComponent = React.forwardRef<
   React.ElementRef<typeof Checkbox.Root>,

@@ -1,7 +1,7 @@
+import { browserFetch } from "@/lib/providers/http-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getProductDetail, getProductOffers } from "../infra/api";
 import { productSearch } from "../infra/queries";
-import { browserFetch } from "@/lib/providers/http-client";
 import { ProductQuery } from "../types";
 
 export const useProducts = (query: ProductQuery) =>

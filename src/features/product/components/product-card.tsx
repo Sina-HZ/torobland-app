@@ -1,6 +1,6 @@
-import { Copy, Heart, PackageCheck, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/features/product/types";
+import { Copy, Heart, PackageCheck, Store } from "lucide-react";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
