@@ -7,6 +7,7 @@ import ProductCatalog from "@/features/product/components/product-catalog";
 import { categoryList, productSearch } from "@/features/product/infra/queries";
 import { getQueryClient } from "@/lib/providers/query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { connection } from "next/server";
 import { notFound } from "next/navigation";
 
 export default async function CatalogPage({
@@ -14,6 +15,7 @@ export default async function CatalogPage({
 }: {
   categoryName?: string;
 }) {
+  await connection();
   const queryClient = getQueryClient();
   const [citiesPage, categories] = await Promise.all([
     queryClient.query(citiesQuery()),
