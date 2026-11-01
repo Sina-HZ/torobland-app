@@ -32,6 +32,16 @@ Repo root contains the `torobland-app/` Next.js app. All app work happens in `to
 - Put context or state management utils or providers in `<feature>/contexts`
 
 
+## API conventions (TanStack React Query)
+
+- Put typed request functions in `src/features/<feature>/infra/api/` and related types in the feature's `types/` directory. Reuse `apiFetch()` / `browserFetch` from `@/lib/providers/http-client`; let request errors propagate to React Query.
+- Put `useQuery` / `useMutation` hooks in `<feature>/hooks/`; components consume feature hooks instead of defining requests themselves. Simple mutations may call `browserFetch` inside their hook, as auth hooks do.
+- Put query options shared by hooks and server prefetching in `<feature>/infra/queries.ts`, using `queryOptions`. Reuse the same factory on both sides; follow `productSearch`, `categoryList`, and `citiesQuery`.
+- Use array query keys containing every input that changes the response (IDs, city, search, pagination, filters). For product lists, reuse `canonicalProductQuery` and `toProductSearchParams` so cache keys and requests use the same normalized inputs.
+- Guard queries requiring an ID with `enabled: Boolean(id)`. Keep resource-specific `staleTime` / `gcTime` with the query definition; reuse shared defaults otherwise.
+- Use `useMutation` for writes. In `onSuccess`, invalidate affected keys with `useQueryClient()` (e.g. `["products"]` after saving a city, `["auth", "session"]` after OTP verification); clear the cache on logout.
+- Reuse the existing `QueryProvider` / `getQueryClient` setup; do not create query clients inside feature hooks or components.
+
 ## Config files that matter
 - `torobland-app/next.config.ts` — `cacheComponents: true`, `partialPrefetching: true`, turbopack Tailwind loader
 - `torobland-app/tsconfig.json` — `@/*` -> `./src/*`, strict, isolatedModules

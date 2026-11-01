@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { useCity } from "@/features/location/contexts/city-context";
 import type { Sort } from "@/features/product/components/product-list";
 import { cn } from "@/lib/utils";
 import {
@@ -51,20 +52,26 @@ const SORT_OPTIONS: { value: Sort; label: string }[] = [
 
 interface FilterSidebarProps {
   sort: Sort;
+  categoryId?: string;
   onSortChange: (sort: Sort) => void;
   onBrandsSubmit: (brandIds: string[]) => void;
 }
 
 export default function FilterSidebar({
   sort,
+  categoryId,
   onSortChange,
   onBrandsSubmit,
 }: FilterSidebarProps) {
   const current = SORT_OPTIONS.find((option) => option.value === sort);
   const currentLabel = current ? current.label : "مرتب‌سازی";
+  const { selectedCity } = useCity();
 
   const [selectedBrandIds, setSelectedBrandIds] = useState<string[]>([]);
-  const { data, isFetching, isError } = useCategoryFilters();
+  const { data, isFetching, isError } = useCategoryFilters(
+    categoryId,
+    selectedCity?.id,
+  );
   const brands = data?.brands ?? [];
 
   const isSelected = (id: string) => selectedBrandIds.includes(id);

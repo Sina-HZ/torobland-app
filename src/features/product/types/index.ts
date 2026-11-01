@@ -77,7 +77,7 @@ export type CategoryFilters = {
 };
 export type ProductQuery = {
   q?: string;
-  category?: string;
+  categoryId?: string;
   brand?: string[];
   minPriceRial?: number;
   maxPriceRial?: number;

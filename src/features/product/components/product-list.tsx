@@ -19,14 +19,17 @@ const SORT_TO_API: Record<Sort, string> = {
 export default function ProductList({
   sort = "default",
   brands = [],
+  categoryId,
 }: {
   sort?: Sort;
   brands?: string[];
+  categoryId?: string;
 }) {
   const { selectedCity } = useCity();
   const query = useMemo(() => {
     const sortKey = SORT_TO_API[sort];
     return {
+      categoryId,
       cityId: selectedCity?.id,
       sort:
         sortKey === "popular"
@@ -36,7 +39,7 @@ export default function ProductList({
             : "freshness",
       brand: brands,
     } as const;
-  }, [selectedCity?.id, sort, brands]);
+  }, [categoryId, selectedCity?.id, sort, brands]);
   const { data, isPending, isError } = useProducts(query);
   const products: Product[] = (data?.items ?? []).map(
     ({ product, brand, minimumPriceRial, matchingShopCount, freshness }) => ({

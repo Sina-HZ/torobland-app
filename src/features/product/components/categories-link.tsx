@@ -1,16 +1,23 @@
-import { getQueryClient } from "@/lib/providers/query-client";
+"use client";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { categoryList } from "../infra/queries";
+import { usePathname } from "next/navigation";
+import type { Category } from "../types";
 
-export default async function CategoriesLink() {
-  const queryClient = getQueryClient();
-  const categories = await queryClient.query(categoryList());
+export default function CategoriesLink({
+  categories,
+}: {
+  categories: Category[];
+}) {
+  const pathname = usePathname();
 
   return categories.map((cat) => (
     <Link
       key={cat.id}
-      href={cat.slug}
-      className="transition-colors hover:text-white"
+      href={`/category/${cat.slug}`}
+      className={cn("transition-colors hover:text-white cursor-pointer", {
+        ["text-primary"]: pathname === `/category/${cat.slug}`,
+      })}
     >
       {cat.name}
     </Link>

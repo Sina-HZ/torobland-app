@@ -149,7 +149,7 @@ Returns category-scoped brands and attribute definitions. There is no supported 
 
 ```text
 q
-category
+categoryId
 brand (repeatable; OR semantics)
 minPriceRial
 maxPriceRial
