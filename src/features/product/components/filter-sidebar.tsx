@@ -20,6 +20,7 @@ import {
   DollarSign,
   Package,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { useCategoryFilters } from "../hooks/category-hooks";
 
@@ -27,10 +28,16 @@ interface FilterSectionProps {
   title: string;
   icon: React.ReactNode;
   children: React.ReactNode;
+  shouldRender?: boolean;
 }
 
-function FilterSection({ title, icon, children }: FilterSectionProps) {
-  return (
+function FilterSection({
+  title,
+  icon,
+  children,
+  shouldRender = true,
+}: FilterSectionProps) {
+  return shouldRender ? (
     <Card className="mb-4 border border-slate-800 shadow-none">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 px-4 py-2">
         <CardTitle className="flex items-center gap-2 text-sm font-medium text-slate-300">
@@ -40,7 +47,7 @@ function FilterSection({ title, icon, children }: FilterSectionProps) {
       </CardHeader>
       <CardContent className="p-3 pt-0">{children}</CardContent>
     </Card>
-  );
+  ) : null;
 }
 
 const SORT_OPTIONS: { value: Sort; label: string }[] = [
@@ -66,6 +73,7 @@ export default function FilterSidebar({
   const current = SORT_OPTIONS.find((option) => option.value === sort);
   const currentLabel = current ? current.label : "مرتب‌سازی";
   const { selectedCity } = useCity();
+  const pathname = usePathname();
 
   const [selectedBrandIds, setSelectedBrandIds] = useState<string[]>([]);
   const { data, isFetching, isError } = useCategoryFilters(
@@ -128,8 +136,9 @@ export default function FilterSidebar({
 
       {/* Brands List */}
       <FilterSection
-        title="برندهای محبوب"
+        title="برندها"
         icon={<Building2 className="h-4 w-4 text-cyan-500" />}
+        shouldRender={pathname.startsWith("/category")}
       >
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Scroll overflow once there are more than 6 items */}
