@@ -90,8 +90,9 @@ async function refreshOnce(): Promise<boolean> {
 
 const normalizePath = (path: string) => {
   const prefix = "/api";
+  path = path.startsWith("/") ? path : `/${path}`;
   if (isBrowser()) {
-    path = path.startsWith("/") ? prefix + path : prefix + `/${path}`;
+    path = prefix + path;
   }
   return path;
 };

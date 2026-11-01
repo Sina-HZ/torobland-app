@@ -6,7 +6,7 @@ import CategoriesLink from "@/features/product/components/categories-link";
 import ProductCatalog from "@/features/product/components/product-catalog";
 import { productSearch } from "@/features/product/infra/queries";
 import { getQueryClient } from "@/lib/providers/query-client";
-import { dehydrate, HydrationBoundary, noop } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 // Catalog data is uncached and user/city dependent, so this route renders
 // dynamically per request instead of being statically prerendered at build.
@@ -18,7 +18,7 @@ export default async function Home() {
   const cities = citiesPage.items;
   const initialCity = cities[0];
   const initialQuery = { cityId: initialCity?.id };
-  void queryClient.query(productSearch(initialQuery)).catch(noop);
+  await queryClient.query(productSearch(initialQuery));
 
   return (
     <CityProvider initialCity={initialCity}>
