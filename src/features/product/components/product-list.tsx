@@ -42,7 +42,13 @@ export default function ProductList({
   }, [categoryId, selectedCity?.id, sort, brands]);
   const { data, isPending, isError } = useProducts(query);
   const products: Product[] = (data?.items ?? []).map(
-    ({ product, brand, minimumPriceRial, matchingShopCount, freshness }) => ({
+    ({
+      product,
+      brand,
+      minimumPriceRial = 0,
+      matchingShopCount,
+      freshness,
+    }) => ({
       id: product.id,
       title: product.title,
       image: product.imageUrls[0],
